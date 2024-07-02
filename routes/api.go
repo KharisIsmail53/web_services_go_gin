@@ -16,6 +16,7 @@ func APIRouter(db *gorm.DB) *gin.Engine {
 	endpoints.ZakatRouter(router, db)
 	endpoints.AkadRouter(router, db)
 	endpoints.TransaksiRouter(router, db)
+	endpoints.HistroyRouter(router, db)
 
 	return router
 }

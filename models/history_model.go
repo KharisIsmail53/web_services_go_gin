@@ -12,9 +12,13 @@ type History struct {
 
 type HistoryByID struct {
 	History
-	TransaksiByID
+	TransaksiByID *TransaksiByID `gorm:"foreignKey:IDTransaksi" json:"transaksi"`
 }
 
 func (History) TableName() string {
+	return "history"
+}
+
+func (HistoryByID) TableName() string {
 	return "history"
 }

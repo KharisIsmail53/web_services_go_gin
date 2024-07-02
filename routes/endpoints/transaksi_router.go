@@ -3,8 +3,9 @@ package endpoints
 import (
 	"gin-framework-services/models"
 	"gin-framework-services/schema"
+	"gin-framework-services/services"
 	"net/http"
-
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -31,5 +32,15 @@ func TransaksiRouter(router *gin.Engine, db *gorm.DB) {
 			Status:  http.StatusOK,
 			Data:    transaksi,
 		})
+	})
+
+	router.POST("/transaksi", func(c *gin.Context) {
+		var transaksi models.Transaksi
+		if err := c.ShouldBindJSON(&transaksi); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		fmt.Println(transaksi)
+		services.CreateTransaksi(c, db, &transaksi)
 	})
 }
